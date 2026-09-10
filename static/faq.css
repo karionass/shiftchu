@@ -1,0 +1,140 @@
+body {
+    font-family: 'Comfortaa', sans-serif;
+    background: 
+        linear-gradient(#32323280, #2d2d2d80), 
+        url("/static/img/bluebg.jpg") center center / cover no-repeat fixed;
+    color: #ebecf0;
+    margin: 0;
+    padding: 0;
+}
+
+.center-content {
+    display: flex;
+    justify-content: center;
+    margin: 30px auto;
+    max-width: 1000px;
+}
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+.side-menu {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    top: 0;
+    right: 0;     
+    background: rgba(42, 42, 42, 0.433); 
+    backdrop-filter: blur(10px);     
+    -webkit-backdrop-filter: blur(10px); 
+    overflow-x: hidden;
+    transition: width 0.4s ease;
+    padding-top: 60px;
+    z-index: 1000;
+    color: white;
+    box-shadow: -2px 0 10px rgba(0,0,0,0.3);
+}
+
+.side-menu.open {
+    width: 250px;
+}
+
+.side-menu h2 {
+    text-align: center;
+    font-size: 22px;
+    margin-bottom: 20px;
+}
+
+.side-menu ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+}
+
+.side-menu ul li {
+    margin: 15px 10px;
+}
+
+
+.side-menu ul li a {
+    color: white;
+    text-decoration: none;
+    font-size: 18px;
+    transition: 0.3s;
+}
+
+.side-menu ul li a:hover {
+    color: #395d8b;
+}
+
+    header {
+        padding: 20px;
+        text-align: center;
+        background-color: rgba(50,50,50,0.8);
+    }
+
+    header h1 {
+        margin: 0;
+        font-size: 28px;
+    }
+
+    .search-container {
+        max-width: 800px;
+        margin: 20px auto;
+        text-align: center;
+    }
+
+    .search-container input {
+        width: 80%;
+        padding: 10px 15px;
+        border-radius: 25px;
+        border: 1px solid #555;
+        font-size: 16px;
+        outline: none;
+    }
+
+    .faq-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 0 10px;
+    }
+
+    .faq-item {
+        background-color: rgba(50,50,50,0.6);
+        margin-bottom: 10px;
+        border-radius: 8px;
+        overflow: hidden;
+    }
+
+    .faq-question {
+        padding: 15px 20px;
+        cursor: pointer;
+        font-weight: 600;
+        position: relative;
+    }
+
+    .faq-question::after {
+        content: '+';
+        position: absolute;
+        right: 20px;
+        font-size: 20px;
+        transition: transform 0.3s;
+    }
+
+    .faq-item.active .faq-question::after {
+        transform: rotate(45deg);
+    }
+
+    .faq-answer {
+        padding: 0 20px 15px 20px;
+        display: none;
+        font-weight: 400;
+        line-height: 1.5;
+    }
+
+    .faq-item.active .faq-answer {
+        display: block;
+    }

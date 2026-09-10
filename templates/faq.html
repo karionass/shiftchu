@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ShiftChu — Часто задаваемые вопросы</title>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap&subset=cyrillic" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='faq.css') }}"></head>
+<body>
+<header>
+    <div class="header-container">
+        <h1 class="logo">ShiftChu — FAQ</h1>
+        {% if user %}
+            <div class="user-info">{{ user.name or user['email'] }}, что вас интересует?</div>
+        {% endif %}
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    </div>
+</header>
+
+<div id="sideMenu" class="side-menu">
+    <a href="javascript:void(0)" class="close-btn" onclick="toggleMenu()">×</a>
+    <h2>Меню</h2>
+    <ul>
+        {% if user %}
+            <li><a href="/profile">Профиль</a></li>
+            <li><a href="/faq" class="active">FAQ</a></li>
+            <li><a href="/logout">Выйти</a></li>
+        {% else %}
+            <li><a href="/login" class="btn-google">Войти через Google</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+<main>
+<div class="search-container">
+    <input type="text" id="searchInput" placeholder="Поиск вопроса...">
+</div>
+
+<div class="faq-container" id="faqContainer">
+    <div class="faq-item">
+        <div class="faq-question">Как зарегистрироваться?</div>
+        <div class="faq-answer">Нажмите на кнопку "Войти через Google" на главной странице и выберите ваш аккаунт.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Как устроены календари?</div>
+        <div class="faq-answer">При первом входе вам автоматически создаются 3 календаря: «Генеральная уборка», «Уборка кухни» и «Готовка». Переключаться между ними можно через выпадающий список наверху, а создать свой — кнопкой «+ Новый».</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">В чём разница между "Общий" и "Мои смены"?</div>
+        <div class="faq-answer">"Общий" показывает смены всех участников выбранного календаря, каждый — своим цветом. "Мои смены" показывает только те смены, которые назначены на вас.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Как добавить смену?</div>
+        <div class="faq-answer">Выберите календарь, заполните форму "Что за смена?" (название, дата, время) и нажмите "Добавить смену".</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Как поделиться календарём, например, с сестрой?</div>
+        <div class="faq-answer">Откройте нужный календарь и в панели "Участники" введите email человека, которого хотите добавить, затем нажмите "Пригласить". После этого он увидит и сможет редактировать смены в этом календаре при входе через тот же email.</div>
+    </div>
+    <div class="faq-item">
+        <div class="faq-question">Как изменить профиль?</div>
+        <div class="faq-answer">Перейдите в раздел "Профиль" и нажмите "Редактировать". Там можно изменить имя и аватар.</div>
+    </div>
+</div>
+</main>
+
+<script>
+function toggleMenu() {
+    document.getElementById("sideMenu").classList.toggle("open");
+}
+
+const faqItems = document.querySelectorAll('.faq-item');
+faqItems.forEach(item => {
+    item.querySelector('.faq-question').addEventListener('click', () => {
+        item.classList.toggle('active');
+    });
+});
+
+const searchInput = document.getElementById('searchInput');
+searchInput.addEventListener('input', () => {
+    const filter = searchInput.value.toLowerCase();
+    faqItems.forEach(item => {
+        const questionText = item.querySelector('.faq-question').textContent.toLowerCase();
+        item.style.display = questionText.includes(filter) ? '' : 'none';
+    });
+});
+</script>
+</body>
+</html>

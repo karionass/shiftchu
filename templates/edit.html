@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Редактировать смену — ShiftChu</title>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap&subset=cyrillic" rel="stylesheet">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='edit.css') }}">
+</head>
+<body>
+    <header>
+    <h1>Редактировать смену</h1>
+    </header>
+    {% if task %}
+    <form action="/edit/{{ task['id'] }}" method="POST">
+        <label>Название:</label><br>
+        <input type="text" name="title" value="{{ task['title'] }}" required><br><br>
+        <label>Заметка:</label><br>
+        <input type="text" name="subject" value="{{ task['note'] or '' }}"><br><br>
+        <label>Дата:</label><br>
+        <input type="date" name="deadline" value="{{ task['shift_date'] or '' }}"><br><br>
+        <button type="submit">Сохранить</button>
+        <a href="/?calendar_id={{ task['calendar_id'] }}" class="google-login-btn">Назад</a>
+    </form>
+    {% else %}
+    <p style="text-align:center; color:white;">Смена не найдена.</p>
+    {% endif %}
+</body>
+</html>

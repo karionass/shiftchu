@@ -1,0 +1,354 @@
+body {
+    font-family: 'Comfortaa', sans-serif;
+    background: 
+        linear-gradient(#32323280, #2d2d2d80), 
+        url("/static/img/bluebg.jpg") center center / cover no-repeat fixed; 
+    backdrop-filter: blur(10px);     
+    -webkit-backdrop-filter: blur(10px); 
+    color: #ebecf0;
+    margin: 0;
+    padding: 0;
+}
+
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    text-align: center;
+    
+    background: rgba(42, 42, 42, 0.6); 
+    backdrop-filter: blur(10px);     
+    -webkit-backdrop-filter: blur(10px); 
+    padding: 5px;
+    box-shadow: 0 2px 10px #00000066;
+    color: white;
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.profile-page {
+    background: rgba(42, 42, 42, 0.6); 
+    backdrop-filter: blur(10px);     
+    -webkit-backdrop-filter: blur(10px); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 30px auto;
+    max-width: 700px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    font-family: 'Comfortaa', sans-serif;
+}
+
+/* --- Информация о пользователе --- */
+.profile-info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+    text-align: center;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+/* --- Аватарка --- */
+.avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid #d4d4d4;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+}
+
+.profile-info h2 {
+    font-size: 24px;
+    color: #ebecf0;
+    margin: 0;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.profile-info p {
+    font-size: 16px;
+    color: #ccc;
+    margin: 2px 0;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+/* --- Кнопки --- */
+.google-login-btn, 
+#show-tasks-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #444;
+    padding: 10px 20px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-top: 10px;
+    min-width: 150px;
+}
+
+.google-login-btn:hover {
+    background-color: #222;
+    color: #ebecf0;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+}
+
+.google-login-btn.back-btn {
+    background-color: #d4d4d4;
+    color: #222;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.google-login-btn.back-btn:hover {
+    background-color: #315381;
+    color: #fff;
+    box-shadow: 0 0 8px #315381;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+/* --- Список задач --- */
+.profile-tasks {
+    width: 100%;
+    margin-top: 20px;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.profile-tasks ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.profile-tasks li {
+    background-color: #2a2a2a;
+    color: #fff;
+    padding: 12px 15px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.profile-tasks .task-completed {
+    color: #3bf09f;
+    font-weight: bold;
+}
+
+.profile-page {
+    max-width: 500px;
+    margin: 40px auto;
+    background-color: #2b2b2b;
+    padding: 30px 40px;
+    border-radius: 15px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    color: #ebecf0;
+}
+
+.profile-page h1 {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.profile-page label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.profile-page input[type="text"],
+.profile-page input[type="file"] {
+    width: 100%;
+    padding: 10px 12px;
+    margin-bottom: 20px;
+    border-radius: 10px;
+    border: 2px solid #333;
+    background-color: #222;
+    color: #fff;
+    outline: none;
+    transition: all 0.3s ease;
+    box-sizing: border-box;
+}
+
+.profile-page input[type="text"]:focus {
+    border-color: #315381;
+    box-shadow: 0 0 10px #315381;
+}
+
+.profile-page .avatar-preview {
+    display: block;
+    max-width: 150px;
+    margin: 10px auto 20px auto;
+    border-radius: 50%;
+    border: 2px solid #315381;
+}
+
+.profile-page button[type="submit"],
+.profile-page .google-login-btn {
+    display: block;
+    width: 100%;
+    text-align: center;
+    margin-top: 10px;
+    background-color: #d4d4d4;
+    color: #222;
+    padding: 10px 0;
+    border: none;
+    border-radius: 10px;
+    font-weight: bold;
+    cursor: pointer;
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.profile-page button[type="submit"]:hover,
+.profile-page .google-login-btn:hover {
+    background-color: #315381;
+    color: #fff;
+    box-shadow: 0 0 10px #315381;
+}
+
+
+/* Адаптация */
+@media screen and (max-width: 768px) {
+    .profile-page {
+        margin: 20px;
+        padding: 15px;
+    }
+
+    .avatar {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+
+/* --- Контейнер со всеми задачами --- */
+.all-tasks-container {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.5s ease, padding 0.5s ease;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.all-tasks-container.open {
+    max-height: 1500px; 
+    padding-top: 10px;
+}
+
+/* --- Таблица задач --- */
+.tasks-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Comfortaa', sans-serif;
+}
+
+.tasks-table th, .tasks-table td {
+    padding: 8px 12px;
+    border: 1px solid #444;
+    text-align: left;
+    color: #ebecf0;
+}
+
+.tasks-table th {
+    background-color: #2a2a2a;
+}
+
+.tasks-table tr {
+    transition: background 0.3s;
+}
+
+.tasks-table tr.overdue {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.tasks-table tr.completed {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.tasks-table tr:hover {
+    background-color: #444;
+}
+
+/* #show-tasks-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #444;
+    padding: 10px 20px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-top: 10px;
+    min-width: 150px;
+
+#show-tasks-btn:hover { 
+    background-color: #315381;
+    color: #fff;
+    box-shadow: 0 0 10px #315381;
+} */
+ 
+.modal {
+    display: none; 
+    position: fixed;
+    inset: 0;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    background: rgba(42, 42, 42, 0.6);
+    backdrop-filter: blur(10px);
+}
+
+.modal-content {
+    background: #2c2c2c;
+    padding: 20px;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 800px;
+    color: #fff;
+    max-height: 80vh;
+    overflow-y: auto;
+    box-shadow: 0 0 12px black;
+}
+
+.modal-content h3 {
+    margin-top: 0;
+    text-align: center;
+}
+
+.close {
+    float: right;
+    font-size: 28px;
+    cursor: pointer;
+    color: #fff;
+}
+

@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<title>ShiftChu</title>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@400;600;700&display=swap&subset=cyrillic" rel="stylesheet">
+<link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+<script>
+    window.tasks = {{ shifts_json | safe }};
+</script>
+<script src="{{ url_for('static', filename='script.js') }}" defer></script>
+</head>
+<body>
+<header>
+    <div class="header-container">
+        <h1 class="logo">ShiftChu — календарь смен</h1>
+        {% if user %}
+            <div class="user-info">Добро пожаловать, {{ user.name or user['email'] }}</div>
+        {% endif %}
+        <div class="menu-icon" onclick="toggleMenu()">☰</div>
+    </div>
+</header>
+
+<script src="https://derdere.github.io/site-pet/site-pet.js"></script>
+
+<div id="sideMenu" class="side-menu">
+    <a href="javascript:void(0)" class="close-btn" onclick="toggleMenu()">×</a>
+    <h2>Меню</h2>
+    <ul>
+        {% if user %}
+            <li><a href="/profile">Профиль</a></li>
+            <li><a href="/faq">FAQ</a></li>
+            <li><a href="/logout">Выйти</a></li>
+        {% else %}
+            <li><a href="/login" class="btn-google">Войти через Google</a></li>
+        {% endif %}
+    </ul>
+</div>
+
+<main>
+{% if user %}
+<div class="calendar-toolbar">
+    <div class="calendar-select-group">
+        <label for="calendarSelect">Календарь:</label>
+        <select id="calendarSelect" onchange="switchCalendar(this.value)">
+            {% for cal in calendars %}
+                <option value="{{ cal.id }}" {% if cal.id == selected_calendar_id %}selected{% endif %}>{{ cal.name }}</option>
+            {% endfor %}
+        </select>
+        <button type="button" class="small-btn" onclick="document.getElementById('newCalendarForm').classList.toggle('open')">+ Новый</button>
+    </div>
+
+    <div class="view-toggle">
+        <a href="/?calendar_id={{ selected_calendar_id }}&view=shared" class="toggle-btn {% if view_mode == 'shared' %}active{% endif %}">Общий</a>
+        <a href="/?calendar_id={{ selected_calendar_id }}&view=personal" class="toggle-btn {% if view_mode == 'personal' %}active{% endif %}">Мои смены</a>
+    </div>
+</div>
+
+<form id="newCalendarForm" class="inline-form" action="/calendars/create" method="post">
+    <input type="text" name="name" placeholder="Название нового календаря" required>
+    <button type="submit">Создать</button>
+</form>
+
+{% if selected_calendar %}
+<div class="members-panel">
+    <div class="members-list">
+        <span class="members-label">Участники:</span>
+        {% for m in members %}
+            <span class="member-chip">{{ m.user_email.split('@')[0] }}{% if m.role == 'owner' %} (владелец){% endif %}</span>
+        {% endfor %}
+    </div>
+    <form class="inline-form invite-form" action="/calendars/{{ selected_calendar_id }}/invite" method="post">
+        <input type="email" name="email" placeholder="email человека, кого добавить" required>
+        <button type="submit">Пригласить</button>
+    </form>
+</div>
+{% endif %}
+{% endif %}
+
+<form action="/add" method="post" class="task-form">
+    <input type="hidden" name="calendar_id" value="{{ selected_calendar_id }}">
+    <input type="text" name="title" placeholder="Что за смена?" required>
+    <input type="text" name="note" placeholder="Заметка">
+    <input type="date" name="shift_date">
+    <input type="time" name="start_time">
+    <input type="time" name="end_time">
+    {% if members and members|length > 1 %}
+    <select name="assignee">
+        {% for m in members %}
+            <option value="{{ m.user_email }}" {% if user and m.user_email == user.email %}selected{% endif %}>{{ m.user_email.split('@')[0] }}</option>
+        {% endfor %}
+    </select>
+    {% endif %}
+    {% if user %}
+    <button type="submit">Добавить смену</button>
+    {% else %}
+    <div class="login-container">
+        <a href="/login" class="google-login-btn">Войти через Google</a>
+    </div>
+    {% endif %}
+</form>
+
+<div class="main-layout">
+    <div class="tasks-container">
+        <h2 onclick="toggleTasks()">Смены <span id="toggle-arrow">▼</span></h2>
+        <div class="tasks-body" id="task-list">
+            {% if shifts %}
+                <ul>
+                    {% for t in shifts %}
+                    <li>
+                        <div class="task-info">
+                            <b>{{ t['title'] }}</b>{% if view_mode == 'shared' %} — {{ t['assignee'].split('@')[0] }}{% endif %}
+                            (до {{ t['shift_date'] or "без даты" }}{% if t['start_time'] %}, {{ t['start_time'] }}{% endif %})
+                        </div>
+                        <div class="task-actions">
+                            <a href="#" class="btn-done" data-id="{{ t['id'] }}">
+                                <img src="/static/img/galochka.png" alt="">
+                            </a>
+                            <a href="/edit/{{ t['id'] }}" class="btn-edit"><img src="/static/img/editicon.png" alt=""></a>
+                            <a href="#" class="btn-delete" data-id="{{ t['id'] }}"><img src="/static/img/delsym.png" alt=""></a>
+                        </div>
+                    </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <p>Нет смен</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <div class="center-content">
+        <div id="calendar">
+        </div>
+    </div>
+</div>
+
+
+<div id="taskModal" class="modal">
+    <div class="modal-content">
+        <span class="close" id="closeModal">&times;</span>
+
+        <h3>Редактирование смены</h3>
+
+        <form id="modalForm">
+            <label>Название</label>
+            <input type="text" id="modalTitle">
+
+            <label>Заметка</label>
+            <input type="text" id="modalSubject">
+
+            <label>Дата</label>
+            <input type="date" id="modalDeadline">
+
+            <button type="submit" class="save-btn">Сохранить</button>
+            <button type="button" id="deleteBtn" class="delete-btn">Удалить</button>
+        </form>
+    </div>
+</div>
+
+</main>
+
+<footer></footer>
+<script>
+function toggleMenu() {
+    document.getElementById("sideMenu").classList.toggle("open");
+}
+function switchCalendar(calId) {
+    const view = "{{ view_mode }}";
+    window.location.href = `/?calendar_id=${calId}&view=${view}`;
+}
+</script>
+</body>
+</html>

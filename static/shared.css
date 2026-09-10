@@ -1,0 +1,134 @@
+body {
+        font-family: 'Comfortaa', sans-serif;
+        background: 
+            linear-gradient(#32323280, #2d2d2d80), 
+            url("/static/img/bluebg.jpg") center center / cover no-repeat fixed;
+        color: #ebecf0;
+        margin: 0;
+        padding: 0;
+    }
+    .center-content {
+        display: flex;
+        justify-content: center;
+        margin: 30px auto;
+        max-width: 1000px;
+    }
+    iframe {
+        border-radius: 12px;
+        box-shadow: 0 2px 15px rgba(0,0,0,0.5);
+        width: 100%;
+        max-width: 1500px;
+        height: 700px;
+        border: 0;
+    }
+
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+
+/* --- Кнопки --- */
+.google-login-btn, 
+#show-tasks-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #fff;
+    border: 1px solid #dddddd;
+    border-radius: 30px;
+    font-size: 16px;
+    font-weight: 500;
+    color: #444;
+    padding: 10px 20px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    margin-top: 10px;
+    min-width: 150px;
+}
+
+.google-login-btn:hover {
+    background-color: #315381;
+    color: #ebecf0;
+    box-shadow: 0 3px 10px #315381(0,0,0,0.2);
+    transition: all 0.3s ease;  
+    border-color: #315381;
+    box-shadow: 0 0 10px #315381;
+}
+
+.back-button-container {
+    display: flex;
+    justify-content: center; /* по центру */
+    margin-top: 20px;        /* отступ сверху */
+}
+
+.layout {
+    display: flex;
+}
+
+.friend-list {
+    width: 200px;
+    border-right: 1px solid #ddd;
+    padding: 10px;
+}
+
+main {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    margin: 40px;
+    gap: 0px;
+}
+
+.friends-list {
+    width: 200px;
+    padding: 10px;
+    background-color: rgba(50,50,50,0.6);
+    border-radius: 8px;
+    height: fit-content;
+}
+
+/* Заголовок друзей */
+.friends-list h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 18px;
+    color: #fff;
+}
+
+/* Список друзей */
+.friends-list ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.friends-list li {
+    padding: 6px 4px;
+    border-bottom: 1px solid #555555a3;
+    cursor: pointer;
+    color: #ebecf0;
+}
+
+.friends-list li:hover {
+    background-color: rgba(255,255,255,0.1);
+}
+
+.center-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* теперь элементы идут вертикально */
+    align-items: center;    /* по центру горизонтально */
+}
+
+.calendar-container {
+    width: 100%;
+    max-width: 1500px;
+}
+
+.back-button-container {
+    margin-top: 20px; /* отступ от календаря */
+}
