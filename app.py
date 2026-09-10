@@ -17,6 +17,7 @@ app = Flask(__name__)
 basedir = os.path.abspath(os.path.dirname(__file__))
 DB_PATH = os.path.join(basedir, "tasks.db")
 
+print("CLIENT_ID:", os.getenv("GOOGLE_CLIENT_ID"))
 # --- Google OAuth ---
 oauth = OAuth(app)
 google = oauth.register(
@@ -50,14 +51,12 @@ def allowed_file(filename):
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
 
 
-# --- Дефолтный набор календарей, который получает каждый новый пользователь ---
 DEFAULT_CALENDARS = [
     ("Генеральная уборка", "cleaning_general"),
     ("Уборка кухни", "cleaning_kitchen"),
     ("Готовка", "cooking"),
 ]
 
-# Палитра для окраски смен разных участников в общем виде календаря
 MEMBER_COLORS = ["#007bff", "#e67e22", "#9b59b6", "#1abc9c", "#e84393", "#f1c40f", "#16a085"]
 
 
